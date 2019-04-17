@@ -6,14 +6,13 @@ const { Fragment } = wp.element;
 import './style.scss';
 import './editor.scss';
 
-registerBlockType('kne/section-container-block', {
+registerBlockType('chrisf/section-container-block', {
   title: 'Section Container Block',
   icon: 'heart',
   category: 'common',
   attributes: {
     bgColor: {
-      type: 'string',
-      default: 'transparent'
+      type: 'string'
     },
     bgImage: {
       type: 'object',
@@ -31,7 +30,8 @@ registerBlockType('kne/section-container-block', {
 
   edit( {attributes, className, setAttributes} ) {
 
-    const styles = {
+    const styles = {}
+    if( attributes.bgColor ){
       backgroundColor: attributes.bgColor
     }
     //if bgImage
@@ -129,9 +129,10 @@ registerBlockType('kne/section-container-block', {
 
   save( { attributes } ) {
 
-    const styles = {
+    const styles = {}
+    if( attributes.bgColor ){
       backgroundColor: attributes.bgColor
-    };
+    }
     //if bgImage
     if(attributes.bgImage){
       styles.backgroundImage = 'url(' + attributes.bgImage.image.url + ')'
