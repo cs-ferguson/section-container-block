@@ -1,14 +1,18 @@
 const { RichText, MediaUpload, PlainText, InspectorControls, ColorPalette, InnerBlocks } = wp.editor;
 const { registerBlockType } = wp.blocks;
 const { PanelBody, Button, TextControl, SelectControl } = wp.components;
-const { Fragment } = wp.element;
+const { Fragment, createElement } = wp.element;
+
+const iconEl = createElement('svg', { width: 20, height: 20, viewBox: "0 0 241.95 283.46" },
+  createElement('path', { d: "M41.51,41.51,61.56,61.56a113.38,113.38,0,0,1,160.35,0l20-20.05A141.73,141.73,0,0,0,41.51,41.51 M41.51,41.51,61.56,61.56a113.38,113.38,0,0,0,0,160.35L41.51,242A141.73,141.73,0,0,1,41.51,41.51Z M242,242l-20-20a113.38,113.38,0,0,1-160.35,0L41.51,242A141.73,141.73,0,0,0,242,242Z", fill: "#303030"})
+);
 
 import './style.scss';
 import './editor.scss';
 
 registerBlockType('chrisf/section-container-block', {
   title: 'Section Container Block',
-  icon: 'heart',
+  icon: iconEl,
   category: 'common',
   attributes: {
     bgColor: {
@@ -32,7 +36,7 @@ registerBlockType('chrisf/section-container-block', {
 
     const styles = {}
     if( attributes.bgColor ){
-      backgroundColor: attributes.bgColor
+      styles.backgroundColor = attributes.bgColor
     }
     //if bgImage
     if(attributes.bgImage){
@@ -131,7 +135,7 @@ registerBlockType('chrisf/section-container-block', {
 
     const styles = {}
     if( attributes.bgColor ){
-      backgroundColor: attributes.bgColor
+      styles.backgroundColor = attributes.bgColor
     }
     //if bgImage
     if(attributes.bgImage){
@@ -146,7 +150,6 @@ registerBlockType('chrisf/section-container-block', {
     }
 
     return container;
-    ;
   },
 
   deprecated: [
