@@ -1,6 +1,6 @@
 {
   "name": "secrtion-container-block",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple section container block",
   "main": "src/block.js",
   "scripts": {

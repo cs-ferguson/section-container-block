@@ -1,4 +1,4 @@
-const { RichText, MediaUpload, PlainText, InspectorControls, ColorPalette, InnerBlocks } = wp.editor;
+const { RichText, MediaUpload, PlainText, InspectorControls, ColorPalette, InnerBlocks } = wp.blockEditor;
 const { registerBlockType } = wp.blocks;
 const { PanelBody, Button, TextControl, SelectControl } = wp.components;
 const { Fragment, createElement } = wp.element;
@@ -29,12 +29,24 @@ registerBlockType('chrisf/section-container-block', {
     elementTag: {
       type: 'string',
       default: 'section'
+    },
+    paddingVertical: {
+      type: 'integer',
+      default: 0
+    },
+    paddingHorizontal: {
+      type: 'integer',
+      default: 0
     }
   },
 
   edit( {attributes, className, setAttributes} ) {
 
     const styles = {}
+
+    //padding
+    styles.padding = `${attributes.paddingVertical}rem ${attributes.paddingHorizontal}rem`
+    //bg color
     if( attributes.bgColor ){
       styles.backgroundColor = attributes.bgColor
     }
@@ -109,7 +121,7 @@ registerBlockType('chrisf/section-container-block', {
           </PanelBody>
           <PanelBody>
             <TextControl
-              label='Container ID'
+              label="Container ID"
               value={ attributes.containerId }
               onChange={ (value) => setAttributes({ containerId: value })}
             />
@@ -118,8 +130,27 @@ registerBlockType('chrisf/section-container-block', {
             <SelectControl
               onChange={(value) => setAttributes({ elementTag: value })}
               value={ attributes.elementTag }
-              label={'Choose container type'}
+              label="Choose container type"
               options={[ {value: 'section', label: 'section'}, {value: 'div', label: 'div'} ]}
+            />
+          </PanelBody>
+          <PanelBody>
+            <label>Padding</label>
+            <TextControl
+              type="number"
+              step="0.5"
+              min="0"
+              label="Padding Left and Right"
+              value={ attributes.paddingHorizontal }
+              onChange={ (value) => setAttributes({ paddingHorizontal: parseInt( value, 10 ) })}
+            />
+            <TextControl
+              type="number"
+              step="0.5"
+              min="0"
+              label="Padding Top and Bottom"
+              value={ attributes.paddingVertical }
+              onChange={ (value) => setAttributes({ paddingVertical: parseInt( value, 10 ) })}
             />
           </PanelBody>
         </InspectorControls>
@@ -134,6 +165,9 @@ registerBlockType('chrisf/section-container-block', {
   save( { attributes } ) {
 
     const styles = {}
+    //padding
+    styles.padding = `${attributes.paddingVertical}rem ${attributes.paddingHorizontal}rem`;
+    //bg color
     if( attributes.bgColor ){
       styles.backgroundColor = attributes.bgColor
     }
